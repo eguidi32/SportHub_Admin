@@ -29,8 +29,17 @@ const getLoginErrorMessage = (error: unknown) => {
   }
 
   const status = error.response?.status;
+  const backendMessage =
+    typeof error.response?.data?.message === "string"
+      ? error.response.data.message.toLowerCase()
+      : "";
 
-  if (status === 401 || status === 403) {
+  if (
+    status === 401 ||
+    status === 403 ||
+    backendMessage.includes("bad credentials") ||
+    backendMessage.includes("identifiants")
+  ) {
     return "Email ou mot de passe incorrect.";
   }
 

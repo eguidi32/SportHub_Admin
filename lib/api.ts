@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://api.sporthubsn.com";
+// Keep browser requests same-origin. Next.js rewrites /backend to the API host,
+// which avoids CORS and mixed-content failures on Vercel.
+export const API_BASE_URL = "/backend";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
