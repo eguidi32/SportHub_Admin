@@ -73,9 +73,12 @@ Le login admin est géré côté front par `services/auth.service.ts`.
 La couche HTTP est centralisée dans `lib/api.ts`.
 
 - `API_BASE_URL` vaut toujours `/backend` dans le navigateur.
-- Les requêtes sont ensuite réécrites par Next.js vers le backend réel.
+- Les requêtes sont relayées par la route serveur
+  `app/backend/[...path]/route.ts` vers le backend réel.
 
-Cette approche évite les appels cross-origin directs depuis le navigateur et limite les problèmes de CORS côté client.
+Cette approche évite les appels cross-origin directs depuis le navigateur. Le
+proxy ne transmet pas l'en-tête `Origin` au backend, ce qui évite les refus CORS
+sur les opérations `POST`, `PUT`, `PATCH` et `DELETE`.
 
 ## 6. Déploiement
 
